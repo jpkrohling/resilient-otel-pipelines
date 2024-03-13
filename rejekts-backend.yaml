@@ -1,0 +1,31 @@
+# represents the SaaS endpoint, not under our control
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: localhost:5317
+
+processors:
+  batch:
+
+exporters:
+  debug:
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug]
+
+  telemetry:
+    metrics:
+      address: localhost:9888
